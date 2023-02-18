@@ -1,5 +1,5 @@
 <template>
-    <div class="col-12 col-sm-6 col-md-3 col-lg-2 mb-3">
+    <div class="col-12 col-sm-6 col-md-3 mb-3">
             <div class="card h-100">
                 <img :src="idMeal.strMealThumb" :alt="idMeal.strMeal" class="card-img-top" />
                 <div class="card-body bg-light">
@@ -18,8 +18,8 @@ export default {
     props: ['idMeal'],
     methods: {
         cardControlLength() {
-            if (this.idMeal.strMeal.length > 30) {
-                this.idMeal.strMeal = this.idMeal.strMeal.substr(0, 30) + '...';
+            if (this.idMeal.strMeal.length > 25) {
+                this.idMeal.strMeal = this.idMeal.strMeal.substr(0, 25) + '...';
             };
             return this.idMeal.strMeal
         }
