@@ -1,8 +1,10 @@
 <template>
   <div class="categories">
-    <h3>Categories</h3>
-    <div v-for="category of categories" :key="category.idCategory">
-      {{ category.strCategory }}
+    <h3>CATEGORIES</h3>
+    <div v-for="category of categories" :key="category.idCategory" class="category">
+      <router-link :to="{ name: 'mealscategory', params: { id: category.strCategory } }">
+        {{ category.strCategory }}
+      </router-link>
     </div>
   </div>
 </template>
@@ -34,5 +36,8 @@ export default {
 </script>
 
 <style>
-
+.category {
+  color: #fff;
+  text-transform: uppercase;
+}
 </style>

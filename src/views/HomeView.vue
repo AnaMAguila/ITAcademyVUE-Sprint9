@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <h1>MEALVELOUS</h1>
     <Categories />
   </div>
 </template>
