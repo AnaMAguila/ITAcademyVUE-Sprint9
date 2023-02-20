@@ -1,16 +1,15 @@
 <template>
   <div class="categories">
     <select class="form-select" v-model="selectedValue">
-      <option value="" disabled selected>Meals by Category</option>
-      <option v-for="category of categories" :key="category.idCategory" :value="category.strCategory">
+      <option value="" disabled selected>Categories</option>
+      <option
+        v-for="category of categories"
+        :key="category.idCategory"
+        :value="category.strCategory"
+      >
         {{ category.strCategory }}
       </option>
     </select>
-
-    <!-- <h5>CATEGORIES</h5>
-    <div v-for="category of categories" :key="category.idCategory" class="category">
-      <button @click="selCategory(category.strCategory)" class="category-button">{{ category.strCategory }}</button>
-    </div> -->
   </div>
 </template>
 
@@ -46,20 +45,6 @@ export default {
   },
   methods: {
     ...mapActions(["selCategory"]),
-  },
+  }
 };
 </script>
-
-<style>
-.category {
-  color: #fff;
-  text-transform: uppercase;
-}
-.category-thumb {
-  width: 50px;
-}
-.category-button {
-  border: none;
-  color: #fff;
-}
-</style>

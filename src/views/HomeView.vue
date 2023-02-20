@@ -1,31 +1,41 @@
 <template>
   <div class="home container-fluid">
-    <div class="row">
-      <div class="col-2">
+    <div class="row mt-3">
+      <div class="col-12 col-sm-4 col-md-3 col-lg-2">
+        <SearchMeal />
+        <p></p>
         <Categories />
         <p></p>
         <Area />
       </div>
-      <div class="col-10">
-        <MealsCategory />        
+      <div class="col-12 col-sm-8 col-md-9 col-lg-10">
+        <Welcome v-if="emptyData === null" />
+        <MealsCateArea />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from '@/components/HelloWorld.vue'
-import Categories from '@/components/Categories.vue'
-import MealsCategory from '@/components/MealsCateArea.vue';
-import Area from '@/components/Area.vue'
+import Categories from "@/components/Categories.vue";
+import Area from "@/components/Area.vue";
+import SearchMeal from "@/components/SearchMeal.vue";
+import MealsCateArea from "@/components/MealsCateArea.vue";
+import Welcome from "@/components/Welcome.vue";
 
 export default {
-  name: 'HomeView',
+  name: "HomeView",
   components: {
-    HelloWorld,
     Categories,
-    MealsCategory,
-    Area
-  }
-}
+    Area,
+    SearchMeal,
+    MealsCateArea,
+    Welcome,
+  },
+  computed: {
+    emptyData() {
+      return this.$store.getters.emptyData;
+    },
+  },
+};
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="area">
     <select class="form-select" v-model="selectedValue">
-      <option value="" disabled selected>Meals by Area</option>
+      <option value="" disabled selected>Areas</option>
       <option v-for="area of area" :key="area.strArea" :value="area.strArea">
         {{ area.strArea }}
       </option>
