@@ -3,10 +3,11 @@
     <div class="col-sm-6 col-md-8 col-lg-9 themed-grid-col card">
       <div class="card-body">
         <h3 class="card-title">WELCOME TO MEALVELOUS</h3>
-        <p class="card-text">
-          Find and share everyday cooking inspiration. Discover
-          recipes, cooks, videos, and how-tos based on the food you love.
+        <p class="card-text text-uppercase">
+          Find and share everyday cooking inspiration. Discover recipes, cooks,
+          videos, and how-tos based on the food you love.
         </p>
+        <hr />
         <span
           v-for="category of categories"
           :key="category.idCategory"
@@ -69,11 +70,17 @@ export default {
 
 <style>
 .category-thumb {
-  width: 80px;
+  width: 150px;
 }
 .category-button {
   border: none;
   color: #000;
   background-color: #fff;
+}
+
+@media (max-width: 776px) {
+  .category-thumb {
+    width: 80px;
+  }
 }
 </style>

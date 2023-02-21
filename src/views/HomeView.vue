@@ -21,7 +21,7 @@ import Categories from "@/components/Categories.vue";
 import Area from "@/components/Area.vue";
 import SearchMeal from "@/components/SearchMeal.vue";
 import MealsCateArea from "@/components/MealsCateArea.vue";
-import Welcome from "@/components/Welcome.vue";
+import Welcome from "@/components/WelcomePage.vue";
 
 export default {
   name: "HomeView",

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-12 col-sm-6 col-md-3 mb-3" v-for="meal of selectedCateArea" :key="meal.idMeal">
+      <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-3" v-for="meal of selectedCateArea" :key="meal.idMeal">
       <MealCard
         :idMeal="meal"
       />

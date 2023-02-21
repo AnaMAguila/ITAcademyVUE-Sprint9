@@ -5,11 +5,13 @@
       :alt="idMeal.strMeal"
       class="card-img-top"
     />
-    <div class="card-body bg-light">
-      <p class="card-title bg-light text-center">{{ cardControlLength() }}</p>
+    <div class="card-body">
+      <p class="card-title text-center">{{ cardControlLength() }}</p>
     </div>
     <div class="card-footer">
+       <router-link :to="{ name: 'recipe', params: { id: idMeal.idMeal } }">
       <button class="btn btn-dark">View recipe</button>
+      </router-link>
     </div>
   </div>
 </template>
@@ -28,3 +30,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.card {
+  background-color: #3c6a00;
+  color: #fff;
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
   <div class="randomMeals">
-    <div v-for="meal of showIdMeal" :key="meal.idMeal">
+    <div v-for="meal of showRandomMeal" :key="meal.idMeal">
       <MealCard
         :idMeal="meal"
       />
@@ -25,13 +25,13 @@ export default {
 
     // ejecuta antes de mostrar nuestro template
     onMounted(() => {
-      store.dispatch("showIdMeal");
+      store.dispatch("showRandomMeal");
     });
 
     // mapeamos el state para mostrar el array en el v-for
-    const showIdMeal = computed(() => store.state.dataIdMeal.meals);
+    const showRandomMeal = computed(() => store.state.dataRandomMeal.meals);
 
-    return { showIdMeal };
+    return { showRandomMeal };
   },
 };
 </script>

@@ -6,6 +6,7 @@ export default createStore({
     dataCategories: [],
     dataArea: [],
     dataSelectedCateArea: [],
+    dataRandomMeal: [],
     dataIdMeal: []
   },
   getters: {
@@ -19,6 +20,7 @@ export default createStore({
       (state.dataCategories.categories = payload),
     setArea: (state, payload) => (state.dataArea.area = payload),
     setSelectedCateArea: (state, payload) => (state.dataSelectedCateArea.meals = payload),
+    setRandomMeal: (state, payload) => (state.dataRandomMeal.meals = payload),
     setIdMeal: (state, payload) => (state.dataIdMeal.meals = payload),
   },
   actions: {
@@ -92,10 +94,21 @@ export default createStore({
         console.log(error);
       }
     },
-    async showIdMeal({ commit, state }) {
+    async showRandomMeal({ commit, state }) {
       try {
         const resSearchMeal = await fetch(
           `https://www.themealdb.com/api/json/v1/1/random.php`
+        );
+        state.dataRandomMeal = await resSearchMeal.json();
+        commit("setRandomMeal", state.dataRandomMeal.meals);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async showIdMeal({ commit, state }, id) {
+      try {
+        const resSearchMeal = await fetch(
+          `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
         );
         state.dataIdMeal = await resSearchMeal.json();
         commit("setIdMeal", state.dataIdMeal.meals);
@@ -104,5 +117,4 @@ export default createStore({
       }
     },
   },
-  modules: {},
 });

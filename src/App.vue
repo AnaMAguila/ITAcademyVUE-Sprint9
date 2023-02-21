@@ -47,7 +47,7 @@
   background-position: center;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 776px) {
   .banner{
     background-image: none;
   }
