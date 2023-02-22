@@ -9,7 +9,7 @@ const firebaseConfig = {
   storageBucket: "mealvelous.appspot.com",
   messagingSenderId: "1088278681519",
   appId: "1:1088278681519:web:81b33bcfdb4cbf10c3415a",
-  measurementId: "G-DRQWPNQZY7",
+  measurementId: "G-DRQWPNQZY7"
 };
 
 // init firebase

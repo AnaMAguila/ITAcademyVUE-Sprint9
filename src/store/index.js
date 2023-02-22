@@ -1,4 +1,11 @@
 import { createStore } from "vuex";
+import { auth } from "@/firebase/config";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
+} from "firebase/auth";
 
 export default createStore({
   state: {
@@ -7,24 +14,52 @@ export default createStore({
     dataArea: [],
     dataSelectedCateArea: [],
     dataRandomMeal: [],
-    dataIdMeal: []
+    dataIdMeal: [],
+    // guardamos los datos del usuario registrado
+    user: null,
   },
   getters: {
-    emptyData(state){
-      return state.dataSelectedCateArea.meals
-    }
+    emptyData(state) {
+      return state.dataSelectedCateArea.meals;
+    },
   },
   mutations: {
     // funciones síncronas para cambiar el estado e.j. put, edit, delete
     setCategories: (state, payload) =>
       (state.dataCategories.categories = payload),
     setArea: (state, payload) => (state.dataArea.area = payload),
-    setSelectedCateArea: (state, payload) => (state.dataSelectedCateArea.meals = payload),
+    setSelectedCateArea: (state, payload) =>
+      (state.dataSelectedCateArea.meals = payload),
     setRandomMeal: (state, payload) => (state.dataRandomMeal.meals = payload),
     setIdMeal: (state, payload) => (state.dataIdMeal.meals = payload),
+    setUser: (state, payload) => (state.user = payload),
+    setAuthIsReady: (state, payload) => (state.authIsReady = payload)
   },
   actions: {
     // funciones asíncronas que puede llamar una o más mutaciones
+    async signup(context, { email, password }) {
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+      if (res) {
+        context.commit("setUser", res.user);
+      } else {
+        throw new Error("Could not complete signup");
+      }
+    },
+
+    async login(context, { email, password }) {
+      const res = await signInWithEmailAndPassword(auth, email, password);
+      if (res) {
+        context.commit("setUser", res.user);
+      } else {
+        throw new Error("Could not complete login");
+      }
+    },
+
+    async logout(context) {
+      await signOut(auth)
+      context.commit('setUser', null)
+    },
+
     async categories({ commit, state }) {
       try {
         const resCategories = await fetch(
@@ -45,6 +80,7 @@ export default createStore({
         console.log(error);
       }
     },
+
     async area({ commit, state }) {
       try {
         const resArea = await fetch(
@@ -61,6 +97,7 @@ export default createStore({
         console.log(error);
       }
     },
+
     async selCategory({ commit, state }, selectedCategory) {
       try {
         const resSelectedCategory = await fetch(
@@ -72,6 +109,7 @@ export default createStore({
         console.log(error);
       }
     },
+
     async selArea({ commit, state }, selectedArea) {
       try {
         const resSelectedArea = await fetch(
@@ -83,6 +121,7 @@ export default createStore({
         console.log(error);
       }
     },
+
     async searchMeal({ commit, state }, search) {
       try {
         const resSearchMeal = await fetch(
@@ -94,6 +133,7 @@ export default createStore({
         console.log(error);
       }
     },
+
     async showRandomMeal({ commit, state }) {
       try {
         const resSearchMeal = await fetch(
@@ -105,6 +145,7 @@ export default createStore({
         console.log(error);
       }
     },
+
     async showIdMeal({ commit, state }, id) {
       try {
         const resSearchMeal = await fetch(
