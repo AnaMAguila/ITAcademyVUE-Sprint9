@@ -30,7 +30,16 @@ const routes = [
     name: 'mealbyingredients',
     component: () => import(/* webpackChunkName: "recipe" */ '../views/MealByIngredients.vue')
   },
-  
+  {
+    path: '/shoppinglist',
+    name: 'shoppinglist',
+    component: () => import(/* webpackChunkName: "recipe" */ '../views/ShoppingList.vue')
+  },
+  {
+    path: '/favorites',
+    name: 'favorites',
+    component: () => import(/* webpackChunkName: "recipe" */ '../views/Favorites.vue')
+  }  
 ]
 
 const router = createRouter({

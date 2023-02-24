@@ -26,10 +26,13 @@
             <router-link to="/about" class="nav-link">About</router-link>
           </li>
           <li class="nav-item" v-if="loggedUser">
-            <router-link to="/mealplanner" class="nav-link">Meal planner</router-link>
+            <router-link to="/favorites" class="nav-link">Favorites</router-link>
           </li>
           <li class="nav-item" v-if="loggedUser">
-            <router-link to="/mealbyingredients" class="nav-link">Meal by ingredients</router-link>
+            <router-link to="/mealplanner" class="nav-link">Planner</router-link>
+          </li>
+          <li class="nav-item" v-if="loggedUser">
+            <router-link to="/mealbyingredients" class="nav-link">Ingredients</router-link>
           </li>
         </ul>
       </div>

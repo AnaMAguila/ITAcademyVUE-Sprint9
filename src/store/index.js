@@ -3,8 +3,7 @@ import { auth } from "@/firebase/config";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged
+  signOut
 } from "firebase/auth";
 
 export default createStore({
@@ -15,6 +14,7 @@ export default createStore({
     dataSelectedCateArea: [],
     dataRandomMeal: [],
     dataIdMeal: [],
+    dataFavorite: {},
     // guardamos los datos del usuario registrado
     user: null,
   },
@@ -32,8 +32,9 @@ export default createStore({
       (state.dataSelectedCateArea.meals = payload),
     setRandomMeal: (state, payload) => (state.dataRandomMeal.meals = payload),
     setIdMeal: (state, payload) => (state.dataIdMeal.meals = payload),
-    setUser: (state, payload) => (state.user = payload),
-    setAuthIsReady: (state, payload) => (state.authIsReady = payload)
+    setUser: (state, payload) => (state.user = payload),    
+    setFavorite: (state, payload) => (state.dataFavorite[payload.idMeal] = payload),
+    delFavorite: (state, payload) => (delete state.dataFavorite[payload.idMeal])
   },
   actions: {
     // funciones asíncronas que puede llamar una o más mutaciones
@@ -157,5 +158,11 @@ export default createStore({
         console.log(error);
       }
     },
+
+    addFavorite({commit, state}, idMeal){
+      state.dataFavorite.hasOwnProperty(idMeal.idMeal)
+      ? commit('delFavorite', idMeal)
+      : commit('setFavorite', idMeal)     
+    }
   },
 });
