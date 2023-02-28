@@ -1,7 +1,7 @@
 <template>
-  <div class="home container-fluid">
+  <div class="home container">
     <div class="row mt-3">
-      <div class="col-12 col-sm-6">
+      <div class="col-12 col-sm-6 mb-4">
         <h3>Week Planner</h3>
         <table class="w-100">
           <tr>

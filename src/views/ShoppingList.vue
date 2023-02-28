@@ -49,8 +49,7 @@ export default {
 
 <style>
 .columns {
-  column-count: 4;
-  column-gap: 20px;
+  column-count: 3;
 }
 
 ul {
