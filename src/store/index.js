@@ -3,10 +3,11 @@ import { auth } from "@/firebase/config";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signOut
+  signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 
-export default createStore({
+const store = createStore({
   state: {
     // poner variables y colecciones aquí
     dataCategories: [],
@@ -14,9 +15,13 @@ export default createStore({
     dataSelectedCateArea: [],
     dataRandomMeal: [],
     dataIdMeal: [],
+    dataAllIngredients: [],
     dataFavorite: {},
+    dataWeek: {},
+    weekIngredients: {},
     // guardamos los datos del usuario registrado
     user: null,
+    authIsReady: false,
   },
   getters: {
     emptyData(state) {
@@ -32,9 +37,21 @@ export default createStore({
       (state.dataSelectedCateArea.meals = payload),
     setRandomMeal: (state, payload) => (state.dataRandomMeal.meals = payload),
     setIdMeal: (state, payload) => (state.dataIdMeal.meals = payload),
-    setUser: (state, payload) => (state.user = payload),    
-    setFavorite: (state, payload) => (state.dataFavorite[payload.idMeal] = payload),
-    delFavorite: (state, payload) => (delete state.dataFavorite[payload.idMeal])
+    setAllIngredients: (state, payload) => (state.dataAllIngredients.meals = payload),
+    setWeekPlanner: (state, payload) =>
+      (state.dataWeek[payload.idMeal] = payload),
+
+    setWeekIngredients(state, payload){
+      state.weekIngredients = payload
+    },
+    
+    delMealWeek: (state, payload) => delete state.dataWeek[payload],
+    setFavorite(state, payload){
+      state.dataFavorite[payload.idMeal] = payload
+    },
+    delFavorite: (state, payload) => delete state.dataFavorite[payload.idMeal],
+    setUser: (state, payload) => (state.user = payload),
+    setAuthIsReady: (state, payload) => (state.authIsReady = payload),
   },
   actions: {
     // funciones asíncronas que puede llamar una o más mutaciones
@@ -57,8 +74,8 @@ export default createStore({
     },
 
     async logout(context) {
-      await signOut(auth)
-      context.commit('setUser', null)
+      await signOut(auth);
+      context.commit("setUser", null);
     },
 
     async categories({ commit, state }) {
@@ -159,10 +176,44 @@ export default createStore({
       }
     },
 
-    addFavorite({commit, state}, idMeal){
+    async showAllIngredients({ commit, state }) {
+      try {
+        const resSearchMeal = await fetch(
+          `https://www.themealdb.com/api/json/v1/1/list.php?i=list`
+        );
+        state.dataAllIngredients = await resSearchMeal.json();
+        commit("setAllIngredients", state.dataAllIngredients.meals);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    showWeekIngredients({ commit, state }, dataWeek){
+      const arr = Object.keys(dataWeek);
+      
+      const newArray = arr.map(async (id) => {
+        const recipe = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);   
+        state.weekIngredients = await recipe.json();
+        return state.weekIngredients.meals;
+      });
+
+      Promise.all(newArray).then((data) => {      
+        commit("setWeekIngredients", data);
+      });      
+    },
+
+    addFavorite({ commit, state }, idMeal) {
       state.dataFavorite.hasOwnProperty(idMeal.idMeal)
-      ? commit('delFavorite', idMeal)
-      : commit('setFavorite', idMeal)     
-    }
+        ? commit("delFavorite", idMeal)
+        : commit("setFavorite", idMeal);
+    },
   },
 });
+
+const unsub = onAuthStateChanged(auth, (user) => {
+  store.commit("setAuthIsReady", true);
+  store.commit("setUser", user);
+  unsub();
+});
+
+export default store;

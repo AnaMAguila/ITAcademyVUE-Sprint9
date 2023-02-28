@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { computed } from '@vue/runtime-core'
+import { computed } from "vue";
 import { useStore } from 'vuex'
 import MealCard from "@/components/MealCard.vue";
 

@@ -42,12 +42,14 @@
   <router-view />
   <Login />
   <SignUp />
+  <ModalPlanne />
 </template>
 
 <script>
 import Header from "@/components/Header.vue";
 import Login from "@/views/Login.vue";
 import SignUp from "@/views/SignUp.vue";
+import ModalPlanne from "@/components/ModalPlanner.vue";
 
 import { computed } from "vue";
 import { useStore } from "vuex";
@@ -58,6 +60,7 @@ export default {
     Header,
     Login,
     SignUp,
+    ModalPlanne
   },
   setup() {
     const store = useStore();

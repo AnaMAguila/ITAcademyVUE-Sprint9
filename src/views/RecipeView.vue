@@ -116,9 +116,9 @@ export default {
   },
   methods: {
     ...mapActions(["showIdMeal"]),
-    onReady() {
-      if (this.$refs.youtube.playVideo) this.$refs.youtube.playVideo();
-    },
+    // onReady() {
+    //   if (this.$refs.youtube.playVideo) this.$refs.youtube.playVideo();
+    // },
   },
 };
 </script>

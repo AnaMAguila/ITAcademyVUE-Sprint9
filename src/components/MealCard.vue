@@ -10,12 +10,16 @@
     </div>
     <div class="card-footer text-center">
        <router-link :to="{ name: 'recipe', params: { id: idMeal.idMeal } }">
-      <button class="btn btn-outline-light m-1"><i class="bi bi-eye"></i></button>
+      <button class="btn btn-outline-light btn-sm"><i class="bi bi-eye"></i></button>
       </router-link>
 
-      <button class="btn btn-outline-light" @click="agregaFavorito(idMeal)" v-if="loggedUser">
+      <button class="btn btn-outline-light btn-sm m-1" @click="agregaFavorito(idMeal)" v-if="loggedUser">
         <i class="bi bi-heart" v-if="!isFavorite"></i>
         <i class="bi bi-heart-fill" v-if="isFavorite"></i>
+      </button>
+
+      <button type="button" class="btn btn-outline-light btn-sm" data-bs-toggle="modal" data-bs-target="#plannerModal" @click="sendIdMeal(idMeal)" v-if="loggedUser">
+        <i class="bi bi-calendar3"></i>
       </button>
     </div>
   </div>
@@ -46,11 +50,13 @@ export default {
     const loggedUser = computed(() => store.state.user);
     const dataFavorite = computed(() => store.state.dataFavorite);
 
+    const sendIdMeal = (idMeal) => {store.commit('setIdMeal',idMeal)}
+
     const agregaFavorito = (idMeal) => {
       store.dispatch('addFavorite', idMeal)
     }
 
-    return { loggedUser, dataFavorite, agregaFavorito};
+    return { loggedUser, dataFavorite, agregaFavorito, sendIdMeal};
   }
 };
 </script>
