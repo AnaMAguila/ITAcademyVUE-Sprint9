@@ -31,9 +31,6 @@
           <li class="nav-item" v-if="loggedUser">
             <router-link to="/mealplanner" class="nav-link">Planner</router-link>
           </li>
-          <li class="nav-item" v-if="loggedUser">
-            <router-link to="/mealbyingredients" class="nav-link">Ingredients</router-link>
-          </li>
         </ul>
       </div>
       <img src="@/assets/img/organic.png" class="logo d-none d-md-block" />

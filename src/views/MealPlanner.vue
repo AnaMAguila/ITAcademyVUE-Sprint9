@@ -1,5 +1,6 @@
 <template>
-  <div class="home container">
+  <div class="container" v-if="!loggedUser">To see this content you need to be registered</div>
+  <div class="home container" v-if="loggedUser">
     <div class="row mt-3">
       <div class="col-12 col-sm-6 mb-4">
         <h3>Week Planner</h3>
@@ -130,14 +131,15 @@ export default {
     ShoppingList
   },
   setup() {
-    const store = useStore()
-    const dataWeek = computed(() => store.state.dataWeek)
+    const store = useStore();
+    const dataWeek = computed(() => store.state.dataWeek);
+    const loggedUser = computed(() => store.state.user);
 
     const elimina = idMeal => {
-      store.commit('delMealWeek', idMeal)
+      store.commit('delMealWeek', idMeal);
     }
 
-    return { dataWeek, elimina }
+    return { dataWeek, elimina, loggedUser }
   }
 }
 </script>

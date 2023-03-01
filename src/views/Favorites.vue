@@ -1,5 +1,6 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="!loggedUser">To see this content you need to be registered</div>
+  <div class="container" v-if="loggedUser">
     <h3>Favorites</h3>
     <div class="row">
       <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-3" v-for="meal of favorites" :key="meal.idMeal">
@@ -24,8 +25,9 @@ export default {
     setup() {
         const store = useStore()
         const favorites = computed(() => store.state.dataFavorite)
+        const loggedUser = computed(() => store.state.user);
 
-        return { favorites }
+        return { favorites, loggedUser }
     }
 }
 </script>

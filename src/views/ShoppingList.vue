@@ -1,6 +1,7 @@
 <template>
   <h3>Shopping List</h3>
-  <div class="columns pt-3">
+    <div class="container" v-if="!loggedUser">To see this content you need to be registered</div>
+  <div class="columns pt-3" v-if="loggedUser">
     <ul v-for="item of verSoloIngredientes" :key="item.idMeal">
       <li><input type="checkbox" id="cbox"> {{item}}</li>
     </ul>
@@ -17,8 +18,9 @@ export default {
     const store = useStore();
     const dataWeek = computed(() => store.state.dataWeek);
     const weekIngredients = computed(() => store.state.weekIngredients);
+    const loggedUser = computed(() => store.state.user);
 
-    return { dataWeek , weekIngredients };
+    return { dataWeek , weekIngredients, loggedUser };
   },
   created() {
     this.showWeekIngredients(this.dataWeek);

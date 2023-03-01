@@ -26,11 +26,6 @@ const routes = [
     component: () => import(/* webpackChunkName: "mealplanner" */ '../views/MealPlanner.vue')
   },
   {
-    path: '/mealbyingredients',
-    name: 'mealbyingredients',
-    component: () => import(/* webpackChunkName: "recipe" */ '../views/MealByIngredients.vue')
-  },
-  {
     path: '/shoppinglist',
     name: 'shoppinglist',
     component: () => import(/* webpackChunkName: "recipe" */ '../views/ShoppingList.vue')
