@@ -1,11 +1,20 @@
 import { createStore } from "vuex";
 import { auth } from "@/firebase/config";
+// import { database } from "@/firebase/config";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
+import { 
+  getDatabase, 
+  ref, 
+  push, 
+  set, 
+  remove,
+  onValue
+} from "firebase/database";
 
 const store = createStore({
   state: {
@@ -203,9 +212,37 @@ const store = createStore({
     },
 
     addFavorite({ commit, state }, idMeal) {
-      state.dataFavorite.hasOwnProperty(idMeal.idMeal)
-        ? commit("delFavorite", idMeal)
-        : commit("setFavorite", idMeal);
+      const id = idMeal.idMeal 
+      const db = getDatabase(); 
+      const mealListRef = ref(db, 'favorites');    
+
+      if(state.dataFavorite.hasOwnProperty(idMeal.idMeal)){
+        commit("delFavorite", idMeal);
+
+        onValue(mealListRef, (snapshot) => {
+          snapshot.forEach((childSnapshot) => {
+            const childKey = childSnapshot.key;
+            const childData = childSnapshot.val();
+            
+            if(childData.idMeal === id){
+              remove(childSnapshot.ref)
+            }
+          });
+        },
+        {
+          onlyOnce: true
+        });
+
+      }else{
+        commit("setFavorite", idMeal);
+        const mealRef = push(mealListRef);
+        set(mealRef, idMeal);
+
+      }
+      
+      // state.dataFavorite.hasOwnProperty(idMeal.idMeal)
+      //   ? commit("delFavorite", idMeal)
+      //   : commit("setFavorite", idMeal);       
     },
   },
 });

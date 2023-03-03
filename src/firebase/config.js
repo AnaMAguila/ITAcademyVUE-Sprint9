@@ -1,10 +1,12 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getDatabase } from "firebase/database";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyCggMGYlZkHL0KKNpIOoAc_cZrzYJfRgNM",
   authDomain: "mealvelous.firebaseapp.com",
+  databaseURL: "https://mealvelous-default-rtdb.firebaseio.com",
   projectId: "mealvelous",
   storageBucket: "mealvelous.appspot.com",
   messagingSenderId: "1088278681519",
@@ -16,6 +18,7 @@ const firebaseConfig = {
 initializeApp(firebaseConfig)
 
 // init firebase auth
-const auth = getAuth()
+const auth = getAuth();
+const database = getDatabase();
 
-export { auth }
+export { auth, database }
